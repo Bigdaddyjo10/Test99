@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://dncyo0l5hql34"]
+
+[ext_resource type="Texture2D" uid="uid://bojakltq27jxp" path="res://icon.svg" id="1_jsb3p"]
+[ext_resource type="Script" path="res://Scene/Enemy 1/enemy_1.gd" id="1_st5dm"]
+[ext_resource type="AudioStream" uid="uid://c5xrm7jy76ca1" path="res://Scene/Bullet/Zombie_Death.mp3" id="3_e2tkp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nxwad"]
+size = Vector2(122, 122)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ajscu"]
+size = Vector2(122, 122)
+
+[node name="Zombie" type="CharacterBody2D"]
+script = ExtResource("1_st5dm")
+
+[node name="Area2D" type="Area2D" parent="." groups=["Zombie"]]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_nxwad")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ajscu")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 0.0666667, 0, 1)
+texture = ExtResource("1_jsb3p")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_e2tkp")
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
